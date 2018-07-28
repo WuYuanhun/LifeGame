@@ -61,6 +61,17 @@ def run(win):
             if(book[i][j] != map[i][j].stat):
                 map[i][j].inverse(win)
 
+def store(temp):
+    t = 0 
+    for i in range(40):
+        for j in range(40):
+            if map[i][j].stat:
+                t += 2 ** (40-j)
+        print(t) 
+        t = 0       
+            
+
+
 
 
 if __name__ == '__main__':
@@ -70,6 +81,10 @@ if __name__ == '__main__':
     rect = Rectangle(Point(800, 0), Point(1200, 800))
     rect.setFill('blue')
     rect.draw(win)
+
+    input1=Entry(Point(1000,400),20)
+    input1.setText(0.0)
+    input1.draw(win)
     for i in range(40):
         for j in range(40):
             map[i][j] = Unit(i,j, False,win)
@@ -79,16 +94,22 @@ if __name__ == '__main__':
     for i in range(200):
         q = win.getMouse()
         if(q.getX()>800):
+            store(map)
             break
-        map[int(q.x/20)][int(q.y/20)].set(True)
-        map[int(q.x/20)][int(q.y/20)].update(win)
+        map[int(q.x/20)][int(q.y/20)].inverse(win)
 
     text = Text(Point(50, 50), "1")
     text.setTextColor('red')
     text.draw(win)
-    for i in range(10000000000):
+    for i in range(1000):
         run(win)
         text.setText(str(i))
+        delatTime = eval(input1.getText())
+        if(delatTime >= 2.0):
+            delatTime = 2.0
+        if(delatTime < 0.0):
+            delatTime = 0.0
+        delay(delatTime)
         
 
     text =Text(Point(400, 400), "END")
