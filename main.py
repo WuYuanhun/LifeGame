@@ -62,12 +62,14 @@ def run(win):
                 map[i][j].inverse(win)
 
 def store(temp):
-    t = [0 for i in range(40)]
+    hor = [0 for i in range(40)]
+    first = False
     for i in range(40):
         for j in range(40):
             if map[i][j].stat:
-                t[i] += 2 ** (40-j)
-        print(t[i]) 
+                hor[i] += 2 ** (40-j)
+        if(first or hor[i] != 0):
+            print(hor[i])
             
 
 
